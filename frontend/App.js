@@ -1,21 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import tw from 'twrnc';  // for tailwindcss
+import { Provider } from 'react-redux';
+import { store } from './store';
+import HomeScreen from './Screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import MapScreen from './Screens/MapScreen';
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={tw`text-blue-100`}>Jenna</Text>
-      
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  const Stack = createStackNavigator();
+
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="MapScreen" component={MapScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  );
+
+}
